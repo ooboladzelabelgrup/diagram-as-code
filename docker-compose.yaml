@@ -1,0 +1,12 @@
+
+
+services:
+  python:
+    image: python:3.11
+    container_name: python-app
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    command: bash -lc "apt-get update -qq && apt-get install -y -qq graphviz && pip install --no-cache-dir -r requirements.txt && python app.py"
