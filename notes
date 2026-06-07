@@ -1,1 +1,4 @@
-pass Diagram-as-code text to 'app.py' and run 'docker compose up' in terminal
+Diagram-As-Code:    https://diagrams.mingrammer.com/   
+
+Usage:              Pass Diagram-as-code text to 'app.py' and run 'docker compose up' in the terminal
+
