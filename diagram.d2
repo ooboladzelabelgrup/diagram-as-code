@@ -1,0 +1,265 @@
+vars: {
+  d2-config: {
+    layout-engine: elk
+  }
+}
+
+# ========================
+# EXTERNAL
+# ========================
+internet: Internet {
+  shape: cloud
+  style.fill: "#e8f4f8"
+}
+
+ovh_lb: OVH LB\n162.19.109.30 {
+  shape: hexagon
+  style.fill: "#fff3e0"
+  style.stroke: "#e65100"
+}
+
+nginx_ic: Nginx Ingress Controller\n(nginx class) {
+  style.fill: "#fff3e0"
+  style.stroke: "#e65100"
+}
+
+ovh_registry: OVH Harbor Registry\n8e08x847.c1.gra9.container-registry.ovh.net {
+  shape: cylinder
+  style.fill: "#fff3e0"
+  style.stroke: "#e65100"
+}
+
+# ========================
+# NAMESPACE: sfera-dev
+# ========================
+ns: sfera-dev {
+  style.fill: "#f5f5f5"
+  style.stroke: "#616161"
+  style.stroke-width: 2
+
+  # ========================
+  # BACKEND
+  # ========================
+  backend: Backend (phpfpm + nginx sidecar) {
+    style.fill: "#e3f2fd"
+    style.stroke: "#1565c0"
+
+    ing_be1: Ingress: backend-sfera-phpfpm-dev\ndev-horizon.sferafarma.com\ndev-api.sferafarma.com {
+      shape: diamond
+      style.fill: "#bbdefb"
+      style.stroke: "#1565c0"
+    }
+    ing_be2: Ingress: backend-sfera-phpfpm-dev-2\ndev-api2.sferafarma.com {
+      shape: diamond
+      style.fill: "#bbdefb"
+      style.stroke: "#1565c0"
+    }
+    ing_be3: Ingress: backend-sfera-phpfpm-dev-3\ndev-api3.sferafarma.com {
+      shape: diamond
+      style.fill: "#bbdefb"
+      style.stroke: "#1565c0"
+    }
+    ing_be_redir: Ingress: backend-sfera-phpfpm-dev-redirect\ndev.api.sferafarma.com {
+      shape: diamond
+      style.fill: "#bbdefb"
+      style.stroke: "#1565c0"
+    }
+
+    svc_be1: Service: backend-sfera-phpfpm-dev\nClusterIP 10.3.57.215:80 {
+      style.fill: "#fff9c4"
+      style.stroke: "#f57f17"
+    }
+    svc_be2: Service: backend-sfera-phpfpm-dev-2\nClusterIP 10.3.174.17:80 {
+      style.fill: "#fff9c4"
+      style.stroke: "#f57f17"
+    }
+    svc_be3: Service: backend-sfera-phpfpm-dev-3\nClusterIP 10.3.134.222:80 {
+      style.fill: "#fff9c4"
+      style.stroke: "#f57f17"
+    }
+
+    pod_be1: Deployment: backend-sfera-dev-phpfpm-deployment\nsfera-backend-phpfpm-dev:v3.18.1\nsfera-backend-nginx-dev:stable\n2/2 Running | ~1.6 GB RAM {
+      style.fill: "#c8e6c9"
+      style.stroke: "#2e7d32"
+    }
+    pod_be2: Deployment: backend-sfera-dev-phpfpm-deployment-2\nphpfpm + nginx sidecar\n2/2 Running | ~1.8 GB RAM {
+      style.fill: "#c8e6c9"
+      style.stroke: "#2e7d32"
+    }
+    pod_be3: Deployment: backend-sfera-dev-phpfpm-deployment-3\nphpfpm + nginx sidecar\n2/2 Running | ~1.7 GB RAM {
+      style.fill: "#c8e6c9"
+      style.stroke: "#2e7d32"
+    }
+  }
+
+  # ========================
+  # FRONTEND
+  # ========================
+  frontend: Frontend {
+    style.fill: "#e8f5e9"
+    style.stroke: "#2e7d32"
+
+    ing_fe1: Ingress: frontend-sfera-dev\ndev.sferafarma.com {
+      shape: diamond
+      style.fill: "#dcedc8"
+      style.stroke: "#33691e"
+    }
+    ing_fe2: Ingress: frontend-sfera-dev-2\ndev2.sferafarma.com {
+      shape: diamond
+      style.fill: "#dcedc8"
+      style.stroke: "#33691e"
+    }
+    ing_fe3: Ingress: frontend-sfera-dev-3\ndev3.sferafarma.com {
+      shape: diamond
+      style.fill: "#dcedc8"
+      style.stroke: "#33691e"
+    }
+
+    svc_fe1: Service: frontend-sfera-svc-dev\nClusterIP 10.3.9.199:80 {
+      style.fill: "#fff9c4"
+      style.stroke: "#f57f17"
+    }
+    svc_fe2: Service: frontend-sfera-svc-dev-2\nClusterIP 10.3.235.177:80 {
+      style.fill: "#fff9c4"
+      style.stroke: "#f57f17"
+    }
+    svc_fe3: Service: frontend-sfera-svc-dev-3\nClusterIP 10.3.156.88:80 {
+      style.fill: "#fff9c4"
+      style.stroke: "#f57f17"
+    }
+
+    pod_fe1: Deployment: frontend-sfera-dev-deployment\n1/1 Running | ~36 MB RAM {
+      style.fill: "#f1f8e9"
+      style.stroke: "#558b2f"
+    }
+    pod_fe2: Deployment: frontend-sfera-dev-deployment-2\n1/1 Running | ~5.6 MB RAM {
+      style.fill: "#f1f8e9"
+      style.stroke: "#558b2f"
+    }
+    pod_fe3: Deployment: frontend-sfera-dev-deployment-3\n1/1 Running | ~7.3 MB RAM {
+      style.fill: "#f1f8e9"
+      style.stroke: "#558b2f"
+    }
+  }
+
+  # ========================
+  # SECRETS
+  # ========================
+  secrets: Secrets {
+    style.fill: "#f3e5f5"
+    style.stroke: "#6a1b9a"
+
+    sec_wild: wildcard-sferafarma-com-2025\nkubernetes.io/tls {
+      style.fill: "#e1bee7"
+      style.stroke: "#6a1b9a"
+    }
+    sec_api: devdotapi-sferafarma-com\nkubernetes.io/tls {
+      style.fill: "#e1bee7"
+      style.stroke: "#6a1b9a"
+    }
+    sec_reg: registry-credentials-ovh-labelgrup-k8s\nkubernetes.io/dockerconfigjson {
+      style.fill: "#e1bee7"
+      style.stroke: "#6a1b9a"
+    }
+  }
+
+  # ========================
+  # RBAC
+  # ========================
+  rbac: RBAC {
+    style.fill: "#fce4ec"
+    style.stroke: "#c62828"
+
+    role: Role: developer-role {
+      style.fill: "#fce4ec"
+      style.stroke: "#c62828"
+    }
+    rb: RoleBinding: developer-role-binding {
+      style.fill: "#fce4ec"
+      style.stroke: "#c62828"
+    }
+  }
+}
+
+# ========================
+# Traffic flow
+# ========================
+internet -> ovh_lb: HTTPS
+ovh_lb -> nginx_ic: proxy
+nginx_ic -> ns.backend.ing_be1: route
+nginx_ic -> ns.backend.ing_be2: route
+nginx_ic -> ns.backend.ing_be3: route
+nginx_ic -> ns.backend.ing_be_redir: route
+nginx_ic -> ns.frontend.ing_fe1: route
+nginx_ic -> ns.frontend.ing_fe2: route
+nginx_ic -> ns.frontend.ing_fe3: route
+
+# Ingress → Service
+ns.backend.ing_be1 -> ns.backend.svc_be1
+ns.backend.ing_be2 -> ns.backend.svc_be2
+ns.backend.ing_be3 -> ns.backend.svc_be3
+ns.backend.ing_be_redir -> ns.backend.svc_be1: redirect
+ns.frontend.ing_fe1 -> ns.frontend.svc_fe1
+ns.frontend.ing_fe2 -> ns.frontend.svc_fe2
+ns.frontend.ing_fe3 -> ns.frontend.svc_fe3
+
+# Service → Deployment
+ns.backend.svc_be1 -> ns.backend.pod_be1
+ns.backend.svc_be2 -> ns.backend.pod_be2
+ns.backend.svc_be3 -> ns.backend.pod_be3
+ns.frontend.svc_fe1 -> ns.frontend.pod_fe1
+ns.frontend.svc_fe2 -> ns.frontend.pod_fe2
+ns.frontend.svc_fe3 -> ns.frontend.pod_fe3
+
+# TLS Secrets → Ingresses (wildcard covers all except redirect)
+ns.secrets.sec_wild -> ns.backend.ing_be1: TLS {
+  style.stroke-dash: 4
+  style.stroke: "#6a1b9a"
+}
+ns.secrets.sec_wild -> ns.backend.ing_be2: TLS {
+  style.stroke-dash: 4
+  style.stroke: "#6a1b9a"
+}
+ns.secrets.sec_wild -> ns.backend.ing_be3: TLS {
+  style.stroke-dash: 4
+  style.stroke: "#6a1b9a"
+}
+ns.secrets.sec_wild -> ns.frontend.ing_fe1: TLS {
+  style.stroke-dash: 4
+  style.stroke: "#6a1b9a"
+}
+ns.secrets.sec_wild -> ns.frontend.ing_fe2: TLS {
+  style.stroke-dash: 4
+  style.stroke: "#6a1b9a"
+}
+ns.secrets.sec_wild -> ns.frontend.ing_fe3: TLS {
+  style.stroke-dash: 4
+  style.stroke: "#6a1b9a"
+}
+ns.secrets.sec_api -> ns.backend.ing_be_redir: TLS {
+  style.stroke-dash: 4
+  style.stroke: "#6a1b9a"
+}
+
+# imagePullSecret → Deployments (all pods use OVH registry credentials)
+ns.secrets.sec_reg -> ns.backend: imagePullSecret {
+  style.stroke-dash: 4
+  style.stroke: "#6a1b9a"
+}
+ns.secrets.sec_reg -> ns.frontend: imagePullSecret {
+  style.stroke-dash: 4
+  style.stroke: "#6a1b9a"
+}
+
+# OVH Registry → Deployments (image pull source)
+ovh_registry -> ns.backend: imagePull {
+  style.stroke-dash: 4
+  style.stroke: "#e65100"
+}
+ovh_registry -> ns.frontend: imagePull {
+  style.stroke-dash: 4
+  style.stroke: "#e65100"
+}
+
+# RBAC
+ns.rbac.rb -> ns.rbac.role: binds

@@ -1,4 +1,11 @@
-Diagram-As-Code:    https://diagrams.mingrammer.com/   
 
-Usage:              Pass Diagram-as-code text to 'app.py' and run 'docker compose up' in the terminal
+Diagram-As-Code:             https://diagrams.mingrammer.com/   
+Usage:                       Pass Diagram-as-code text to 'app.py' and run 'docker compose up python'
+Output:                      Image in local directory
+
+
+D2:                          https://d2lang.com/
+Usage:                       Create 'diagram.d2' and run 'docker compose up d2'
+Output:                      localhost:5001
+
 

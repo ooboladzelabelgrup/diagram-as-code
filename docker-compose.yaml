@@ -10,3 +10,11 @@ services:
     stdin_open: true
     tty: true
     command: bash -lc "apt-get update -qq && apt-get install -y -qq graphviz && pip install --no-cache-dir -r requirements.txt && python app.py"
+  d2:
+    image: terrastruct/d2
+    volumes:
+      - ./:/data
+    working_dir: /data
+    ports:
+      - "5001:5001"
+    command: ["--watch", "--host", "0.0.0.0", "--port", "5001", "diagram.d2"]
